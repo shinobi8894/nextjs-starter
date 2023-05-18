@@ -4,12 +4,14 @@ import StyledHeading from "./heading.style"
 interface HeadingProps {
     level?:number;
     children?:ReactNode;
+    refValue?:any;
     [key: string]: any;
+    
 }
 
-export default function Heading ({ level=3, children, ...rest }: HeadingProps) {
+export default function Heading ({ level=3, children, refValue, ...rest }: HeadingProps) {
     return(
-        <StyledHeading $level={level} as={`h${level}`} {...rest}>
+        <StyledHeading ref={refValue} $level={level} as={`h${level}`} {...rest}>
             {
                 children
             }

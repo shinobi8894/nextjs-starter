@@ -1,23 +1,60 @@
-import Flex from "@/components/flex";
-import { FeatureSectionSlideGrid } from "../index.style";
-import Heading from "@/components/heading";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FeatureSectionSlideWrapper } from "../index.style";
-import { Overlay } from "../index.style";
-import Image from "next/image";
 import { Pagination, Navigation, Autoplay } from "swiper";
+import { FeatureSectionSlideWrapper } from "../index.style";
+import { FeatureSectionSlideGrid } from "../index.style";
+import { Overlay } from "../index.style";
+
+import Flex from "@/components/flex";
+import Heading from "@/components/heading";
+import Image from "next/image";
 import Text from "@/components/text";
 import Imgs from "@/constants/imgs";
 import withWrapper from "@/hoc/withWrapper";
 
 const { Bg, Bg2 } = Imgs;
 
-const FeaturedSection = () => {
+interface FeaturedSectionProps {
+    currentPage: number
+}
+
+const FeaturedSection = ({ currentPage }: FeaturedSectionProps) => {
+
+    const HeadingRef = useRef<HTMLLIElement>(null);
+    const DescriptionRef = useRef<HTMLElement>(null);
+    const FirstCardRef = useRef<HTMLElement>(null);
+    const SecondCardRef = useRef<HTMLElement>(null);
+    const ThirdCardRef = useRef<HTMLElement>(null);
+
+    const elements = [
+        { ref: HeadingRef, delay: 0.3 },
+        { ref: DescriptionRef, delay: 0.6 },
+        { ref: FirstCardRef, delay: 0.9 },
+        { ref: SecondCardRef, delay: 1.2 },
+        { ref: ThirdCardRef, delay: 1.5 },
+    ];
+
+    useEffect(() => {
+        currentPage === 1 && animateElement();
+    }, [currentPage])
+
+    const animateElement = () => {
+        elements.forEach(({ ref, delay }, index) => {
+            gsap.from(ref.current, {
+                duration: 0.9,
+                delay: delay + index * 0.05,
+                autoAlpha: 0,
+                y: -30,
+            });
+        });
+    }
+
     return (
         <Flex $col $gap={3}>
             <Flex $justify="space-between">
-                <Heading $color="white">Featured Apartments</Heading>
-                <Heading $color="white" $level={7} $maxWidth={30}>Delattio’s International Realty is excited to present the listing for this
+                <Heading refValue={HeadingRef} $color="white">Featured Apartments</Heading>
+                <Heading refValue={DescriptionRef} $color="white" $level={7} $maxWidth={30}>Delattio’s International Realty is excited to present the listing for this
                     bespoke 4-bedroom Garden Homes villa on Frond N, Palm Jumeirah.
 
                     As well as being positioned on one of the exclusive Fronds of Palm Jumeirah,
@@ -25,7 +62,7 @@ const FeaturedSection = () => {
                     customised to create a dream luxury property.</Heading>
             </Flex>
             <FeatureSectionSlideGrid>
-                <Flex $col $gap={2}>
+                <Flex $col $gap={2} refValue={FirstCardRef}>
                     <FeatureSectionSlideWrapper>
                         <Swiper
                             slidesPerView={1}
@@ -63,7 +100,7 @@ const FeaturedSection = () => {
                         <Heading $color="white" level={7}>AED 144,220,00</Heading>
                     </Flex>
                 </Flex>
-                <Flex $col $gap={2}>
+                <Flex $col $gap={2} refValue={SecondCardRef}>
                     <FeatureSectionSlideWrapper>
                         <Swiper
                             slidesPerView={1}
@@ -101,7 +138,7 @@ const FeaturedSection = () => {
                         <Heading $color="white" level={7}>AED 144,220,00</Heading>
                     </Flex>
                 </Flex>
-                <Flex $col $gap={2}>
+                <Flex $col $gap={2} refValue={ThirdCardRef}>
                     <FeatureSectionSlideWrapper>
                         <Swiper
                             slidesPerView={1}

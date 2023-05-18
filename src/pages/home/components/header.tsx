@@ -11,16 +11,12 @@ const Header = () => {
         <Flex $flex $align="center" $justify="space-between">
             <Heading $color="white" $level={6}>DELATTIO</Heading>
             <List $row $gap={3}>
-                <Item>Home</Item>
                 <Item>Buy</Item>
                 <Item>Sell</Item>
                 <Item>Rent</Item>
                 <Item>Properties</Item>
             </List>
             <Flex $gap={1}>
-                <Button>
-                    <Text $level={7}>Become a Host</Text>
-                </Button>
                 <Button>
                     <Text $level={7}>Sign in</Text>
                 </Button>

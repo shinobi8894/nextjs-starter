@@ -25,20 +25,19 @@ import { Pagination, Navigation, Autoplay } from "swiper";
 const { Bg, Bg2 } = Imgs;
 
 export default function HomePage() {
-    
+
     const [currentPage, setCurrentPage] = useState(0);
     const [direction, setDirection] = useState(true);
 
-    
     useEffect(() => {
         window.addEventListener('keydown', changeCurrentPageWithDebounce);
         return () => window.removeEventListener('keydown', changeCurrentPageWithDebounce);
     }, [currentPage])
-    
+
     useEffect(() => {
         animateFullPage();
     }, [currentPage])
-    
+
     const changeCurrentPage = (e: any) => {
         if (e.key === "ArrowDown") {
             if (currentPage < 4) {
@@ -55,7 +54,7 @@ export default function HomePage() {
     }
 
     const changeCurrentPageWithDebounce = debounce(changeCurrentPage, 100);
-    
+
     const animateFullPage = () => {
         const obj: any = document.querySelector(`#fullpage_` + (direction ? currentPage : currentPage + 1));
         if (obj !== null && direction) {
@@ -74,7 +73,7 @@ export default function HomePage() {
             </HeaderWrapper>
             <HeroSlideWrapper id="fullpage_0">
                 <HeroSectionWraper>
-                    <HeroSection/>
+                    <HeroSection currentPage={currentPage} />
                 </HeroSectionWraper>
                 <Swiper
                     slidesPerView={1}
@@ -101,16 +100,16 @@ export default function HomePage() {
                 </Swiper>
             </HeroSlideWrapper>
             <FullPageWrapper id="fullpage_1">
-                <FeaturedSection/>
+                <FeaturedSection currentPage={currentPage} />
             </FullPageWrapper>
             <FullPageWrapper id="fullpage_2">
-                <PopularAreaSection/>
+                <PopularAreaSection currentPage={currentPage} />
             </FullPageWrapper>
             <ViewDetailSectionWrapper id="fullpage_3">
-                <ViewDetailSection/>
+                <ViewDetailSection currentPage={currentPage} />
             </ViewDetailSectionWrapper>
             <FullPageWrapper id="fullpage_4">
-                <OffPlanSection/>
+                <OffPlanSection currentPage={currentPage} />
             </FullPageWrapper>
         </main>
     )

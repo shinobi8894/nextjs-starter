@@ -43,7 +43,7 @@ export const HeroSlideWrapper = styled.div`
 `
 
 export const Overlay = styled.div`
-    background-color:rgba(0,0,0,0.6);
+    background-color:rgba(0,0,0,0.3);
     position:absolute;
     width:100%;
     height:100%;
